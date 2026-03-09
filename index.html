@@ -1,0 +1,546 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VAG Wizard Ltd</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #0b0b0b;
+      color: white;
+      line-height: 1.6;
+    }
+
+    a {
+      color: white;
+      text-decoration: none;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 40px;
+      background: #111;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .logo img {
+      height: 58px;
+      width: auto;
+      display: block;
+    }
+
+    nav {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+
+    nav a {
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .book-btn,
+    .primary-btn,
+    .secondary-btn {
+      display: inline-block;
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-weight: 700;
+      transition: 0.25s ease;
+    }
+
+    .book-btn,
+    .primary-btn {
+      background: #e11d2e;
+    }
+
+    .secondary-btn {
+      border: 1px solid rgba(255,255,255,0.7);
+      background: transparent;
+    }
+
+    .book-btn:hover,
+    .primary-btn:hover {
+      opacity: 0.9;
+    }
+
+    .secondary-btn:hover {
+      background: rgba(255,255,255,0.08);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 82vh;
+      overflow: hidden;
+    }
+
+    .hero img {
+      width: 100%;
+      height: 82vh;
+      object-fit: cover;
+      filter: brightness(0.42);
+      display: block;
+    }
+
+    .hero-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .hero-inner {
+      max-width: 900px;
+    }
+
+    .eyebrow {
+      font-size: 14px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 700;
+      opacity: 0.95;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 {
+      font-size: 64px;
+      line-height: 1.05;
+      margin: 0 0 16px;
+    }
+
+    .hero p {
+      font-size: 23px;
+      max-width: 850px;
+      margin: 0 auto 28px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .trust-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      background: #111;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .trust-item {
+      padding: 28px 20px;
+      text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .trust-item:last-child {
+      border-right: none;
+    }
+
+    .trust-item h3 {
+      margin: 0 0 8px;
+      font-size: 28px;
+    }
+
+    .trust-item p {
+      margin: 0;
+      color: #d2d2d2;
+      font-size: 15px;
+    }
+
+    .section {
+      padding: 80px 40px;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    .section.center {
+      text-align: center;
+    }
+
+    .section h2 {
+      font-size: 42px;
+      margin: 0 0 10px;
+    }
+
+    .section-subtitle {
+      color: #d2d2d2;
+      margin: 0 0 38px;
+      font-size: 18px;
+    }
+
+    .services-grid,
+    .reviews-grid,
+    .gallery-grid {
+      display: grid;
+      gap: 22px;
+    }
+
+    .services-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .gallery-grid,
+    .reviews-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .card {
+      background: #151515;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 18px;
+      padding: 28px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.18);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      margin-bottom: 14px;
+      font-size: 28px;
+    }
+
+    .card p {
+      margin: 0;
+      color: #d3d3d3;
+      font-size: 17px;
+    }
+
+    .story {
+      max-width: 980px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .story h2,
+    .story .section-subtitle {
+      text-align: center;
+    }
+
+    .story p {
+      margin: 0 0 18px;
+      color: #d7d7d7;
+      font-size: 18px;
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      height: 330px;
+      object-fit: cover;
+      border-radius: 18px;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-grid img:hover {
+      transform: scale(1.02);
+    }
+
+    .review-card {
+      text-align: left;
+    }
+
+    .stars {
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+
+    .review-card h3 {
+      font-size: 23px;
+      margin-bottom: 12px;
+    }
+
+    .contact-box {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #151515;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 18px;
+      padding: 34px;
+      text-align: center;
+    }
+
+    .contact-box p {
+      margin: 12px 0;
+      color: #d6d6d6;
+      font-size: 18px;
+    }
+
+    .contact-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 28px 20px;
+      background: #111;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      color: #cfcfcf;
+      margin-top: 30px;
+    }
+
+    @media (max-width: 1100px) {
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .gallery-grid,
+      .reviews-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 50px;
+      }
+
+      .hero p {
+        font-size: 20px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 16px 18px;
+        flex-wrap: wrap;
+        gap: 14px;
+      }
+
+      .logo {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+
+      nav {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 14px;
+      }
+
+      .book-btn {
+        margin: 0 auto;
+      }
+
+      .hero img {
+        height: 74vh;
+      }
+
+      .hero h1 {
+        font-size: 40px;
+      }
+
+      .hero p {
+        font-size: 18px;
+      }
+
+      .trust-bar {
+        grid-template-columns: 1fr;
+      }
+
+      .trust-item {
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+      }
+
+      .trust-item:last-child {
+        border-bottom: none;
+      }
+
+      .section {
+        padding: 60px 20px;
+      }
+
+      .section h2 {
+        font-size: 32px;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card h3 {
+        font-size: 24px;
+      }
+
+      .gallery-grid img {
+        height: 240px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="#" class="logo">
+      <img src="logo.png" alt="VAG Wizard Ltd logo">
+    </a>
+
+    <nav>
+      <a href="#services">Services</a>
+      <a href="#story">Our Story</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <a class="book-btn" href="https://vwwizard.garageinvoice1.co.uk/booking_appointments/booking_appointments_form/form/3e442a7b78ad77cb57cedcfb3b06741f" target="_blank">Book</a>
+  </header>
+
+  <section class="hero">
+    <img src="garage.jpg" alt="VAG Wizard workshop">
+    <div class="hero-content">
+      <div class="hero-inner">
+        <div class="eyebrow">Since 2016</div>
+        <h1>VAG Specialist Garage in Nicosia</h1>
+        <p>Diagnostics, servicing and DSG gearbox repairs for Volkswagen, Audi, SEAT and Skoda.</p>
+        <div class="hero-buttons">
+          <a class="primary-btn" href="https://vwwizard.garageinvoice1.co.uk/booking_appointments/booking_appointments_form/form/3e442a7b78ad77cb57cedcfb3b06741f" target="_blank">Book Appointment</a>
+          <a class="secondary-btn" href="tel:+35722524363">Call Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust-bar">
+    <div class="trust-item">
+      <h3>★★★★★</h3>
+      <p>5.0 Google Rating</p>
+    </div>
+    <div class="trust-item">
+      <h3>Since 2016</h3>
+      <p>VAG specialist workshop</p>
+    </div>
+    <div class="trust-item">
+      <h3>Volkswagen Group</h3>
+      <p>Audi • VW • SEAT • Skoda</p>
+    </div>
+  </section>
+
+  <section id="services" class="section center">
+    <h2>Services</h2>
+    <p class="section-subtitle">Technical work done properly</p>
+
+    <div class="services-grid">
+      <div class="card">
+        <h3>Diagnostics</h3>
+        <p>Professional fault finding using specialist equipment and clear reporting.</p>
+      </div>
+
+      <div class="card">
+        <h3>DSG &amp; Gearbox</h3>
+        <p>Specialist gearbox inspection, diagnostics and repair for DSG and automatic transmissions.</p>
+      </div>
+
+      <div class="card">
+        <h3>Servicing</h3>
+        <p>Routine maintenance carried out with care and precision.</p>
+      </div>
+
+      <div class="card">
+        <h3>Brakes &amp; Suspension</h3>
+        <p>Brake and suspension repairs to ensure safe handling, comfort and reliable performance.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="story" class="section story">
+    <h2>Our Story</h2>
+    <p class="section-subtitle">Built on experience, growing with purpose</p>
+
+    <p>VAG Wizard began its journey in 2016, originally operating under the name C.A Car Wizard. From the beginning, the focus was simple: provide reliable, high-quality repairs using proper diagnostics, professional equipment and careful attention to detail.</p>
+
+    <p>Over the years, the workshop built a strong reputation working with Volkswagen Group vehicles, including Volkswagen, Audi, SEAT and Skoda. Through hands-on experience and continuous investment in the right tools and technology, the business developed specialist knowledge in diagnostics, servicing and transmission repair.</p>
+
+    <p>As the workshop grew and its focus on VAG vehicles became clearer, the business evolved into VAG Wizard Ltd, marking a new chapter and a stronger commitment to becoming a dedicated VAG specialist.</p>
+
+    <p>Today, VAG Wizard continues to operate with the same principles that built its reputation: precision diagnostics, specialist VAG knowledge, professional equipment, and honest, transparent service.</p>
+
+    <p>Looking ahead, VAG Wizard will continue building on its reputation for quality and reliability. Future plans include expanding operations with a second workshop in Limassol and introducing a vehicle rental service, allowing us to support more drivers across Cyprus.</p>
+
+    <p><strong>Trust the Wizard.</strong></p>
+  </section>
+
+  <section id="gallery" class="section center">
+    <h2>Workshop</h2>
+    <p class="section-subtitle">Inside The Workshop</p>
+
+    <div class="gallery-grid">
+      <img src="garage.jpg" alt="VAG Wizard workshop">
+      <img src="gearbox.jpg" alt="Gearbox repair">
+      <img src="tools.jpg" alt="Workshop tools">
+    </div>
+  </section>
+
+  <section id="reviews" class="section center">
+    <h2>Reviews</h2>
+    <p class="section-subtitle">What customers say</p>
+
+    <div class="reviews-grid">
+      <div class="card review-card">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <h3>madebylava</h3>
+        <p>The best VAG service on the island. I had a gearbox problem with my Passat B6. The owner was so nice to check my car as fast as he could and fixed everything in just one day so my family would not be without a car on the weekend.</p>
+      </div>
+
+      <div class="card review-card">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <h3>Adamos Z</h3>
+        <p>Assad made an excellent impression on me. I brought my VW Golf in with a DSG gearbox error that other garages struggled to properly diagnose. He quickly identified the issue, explained clearly what was wrong, and offered a fair solution.</p>
+      </div>
+
+      <div class="card review-card">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <h3>Elpida Gregoriadou</h3>
+        <p>Assaad is an exceptional mechanic, truly one of the few you can fully trust. He performed a complete diagnostic on my Audi Q2, immediately identified the issue, and explained everything clearly and honestly.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section center">
+    <h2>Contact</h2>
+    <p class="section-subtitle">Book your service</p>
+
+    <div class="contact-box">
+      <p>Antonaki Zachariou, Nicosia 1027, Cyprus</p>
+      <p><a href="tel:+35722524363">22 524363</a></p>
+      <p>Monday to Friday: 8:00–13:00 / 14:00–17:00</p>
+
+      <div class="contact-buttons">
+        <a class="primary-btn" href="https://vwwizard.garageinvoice1.co.uk/booking_appointments/booking_appointments_form/form/3e442a7b78ad77cb57cedcfb3b06741f" target="_blank">Book Service</a>
+        <a class="secondary-btn" href="tel:+35722524363">Call Workshop</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © VAG Wizard Ltd
+  </footer>
+
+</body>
+</html>
